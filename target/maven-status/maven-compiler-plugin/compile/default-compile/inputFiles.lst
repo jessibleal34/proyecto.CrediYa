@@ -1,0 +1,15 @@
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\controlador\ClienteController.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\controlador\EmpladoController.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\controlador\PrestamoController.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\CrediYa.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\clases\Cliente.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\clases\Empleado.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\clases\Pago.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\clases\Prestamo.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\persistencia\ClienteDAO.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\persistencia\ConexionBD.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\persistencia\EmpleadoDAO.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\persistencia\PagoDAO.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\modelo\persistencia\PrestamoDAO.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\util\ArchivoUtil.java
+C:\Users\jessica urrego\Documents\NetBeansProjects\CrediYa\src\main\java\com\mycompany\crediya\vista\Menu.java

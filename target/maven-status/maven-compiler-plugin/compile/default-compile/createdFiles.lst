@@ -1,0 +1,15 @@
+com\mycompany\crediya\controlador\ClienteController.class
+com\mycompany\crediya\modelo\persistencia\ClienteDAO.class
+com\mycompany\crediya\CrediYa.class
+com\mycompany\crediya\modelo\persistencia\ConexionBD.class
+com\mycompany\crediya\vista\Menu.class
+com\mycompany\crediya\controlador\PrestamoController.class
+com\mycompany\crediya\modelo\clases\Empleado.class
+com\mycompany\crediya\modelo\clases\Prestamo.class
+com\mycompany\crediya\modelo\persistencia\PrestamoDAO.class
+com\mycompany\crediya\modelo\persistencia\EmpleadoDAO.class
+com\mycompany\crediya\modelo\clases\Cliente.class
+com\mycompany\crediya\util\ArchivoUtil.class
+com\mycompany\crediya\controlador\EmpladoController.class
+com\mycompany\crediya\modelo\persistencia\PagoDAO.class
+com\mycompany\crediya\modelo\clases\Pago.class
