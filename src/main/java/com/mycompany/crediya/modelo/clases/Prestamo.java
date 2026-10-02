@@ -21,6 +21,7 @@ public class Prestamo {
     private int cuotas;
     private LocalDate fechaInicio;
     private String estado;
+    private double saldoPendiente;
     
     public Prestamo() {
 }
@@ -34,6 +35,7 @@ public class Prestamo {
         this.cuotas = cuotas;
         this.fechaInicio = fechaInicio;
         this.estado = estado;
+        this.saldoPendiente = saldoPendiente;
     }
 
     public int getId() {
@@ -110,7 +112,13 @@ public class Prestamo {
     public double calcularCuotaMensual() {
     return calcularMontoTotal() / cuotas;
 }
-    
+
+   public double getSaldoPendiente() {
+    return saldoPendiente;
+}
+    public void setSaldoPendiente(double saldoPendiente) {
+    this.saldoPendiente = saldoPendiente;
+}
 
 }
     

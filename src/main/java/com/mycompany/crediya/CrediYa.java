@@ -11,6 +11,7 @@ import com.mycompany.crediya.modelo.clases.Prestamo;
 import com.mycompany.crediya.modelo.persistencia.ClienteDAO;
 import com.mycompany.crediya.modelo.persistencia.ConexionBD;
 import com.mycompany.crediya.modelo.persistencia.EmpleadoDAO;
+import com.mycompany.crediya.modelo.persistencia.PagoDAO;
 import com.mycompany.crediya.modelo.persistencia.PrestamoDAO;
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -45,38 +46,8 @@ public class CrediYa {
             System.out.println(e.getMessage());
         }
         // fin dee conexion
-        
-    
-
-
-        PrestamoDAO dao = new PrestamoDAO();
-
-        Prestamo prestamo = new Prestamo(
-                0,
-                1,
-                1,
-                1000000,
-                10,
-                5,
-                LocalDate.now(),
-                "PENDIENTE"
-        );
-
-        dao.insertar(prestamo);
-
-        System.out.println("\n=== PRÉSTAMOS ===");
-
-        List<Prestamo> prestamos = dao.listar();
-
-        for (Prestamo p : prestamos) {
-            System.out.println(p);
-        }
     }
 }
-       
-
-      
-
         
 
     

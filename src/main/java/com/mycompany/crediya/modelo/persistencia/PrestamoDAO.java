@@ -22,11 +22,14 @@ public class PrestamoDAO {
     public void insertar(Prestamo prestamo) {
 
     String sql = "INSERT INTO prestamos "
-            + "(cliente_id, empleado_id, monto, interes, cuotas, fecha_inicio, estado) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            + "(cliente_id, empleado_id, monto, interes, cuotas, "
+            + "fecha_inicio, estado, saldo_pendiente) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection conexion = ConexionBD.conectar();
          PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+        double saldoInicial = prestamo.calcularMontoTotal();
 
         ps.setInt(1, prestamo.getClienteId());
         ps.setInt(2, prestamo.getEmpleadoId());
@@ -35,22 +38,28 @@ public class PrestamoDAO {
         ps.setInt(5, prestamo.getCuotas());
         ps.setDate(6, java.sql.Date.valueOf(prestamo.getFechaInicio()));
         ps.setString(7, prestamo.getEstado());
+        ps.setDouble(8, saldoInicial);
 
         ps.executeUpdate();
 
         System.out.println("Préstamo guardado correctamente.");
+        System.out.println("Saldo pendiente inicial: $" + saldoInicial);
 
     } catch (SQLException e) {
 
         System.out.println("Error al guardar préstamo: "
                 + e.getMessage());
     }
+
 }
     public List<Prestamo> listar() {
 
     List<Prestamo> prestamos = new ArrayList<>();
 
-    String sql = "SELECT * FROM prestamos";
+    String sql = """
+                 SELECT id, cliente_id, empleado_id, monto, interes, cuotas, fecha_inicio, estado
+                 FROM prestamos
+                 """;
 
     try (Connection conexion = ConexionBD.conectar();
          PreparedStatement ps = conexion.prepareStatement(sql);
@@ -58,16 +67,16 @@ public class PrestamoDAO {
 
         while (rs.next()) {
 
-            Prestamo prestamo = new Prestamo(
-                    rs.getInt("id"),
-                    rs.getInt("cliente_id"),
-                    rs.getInt("empleado_id"),
-                    rs.getDouble("monto"),
-                    rs.getDouble("interes"),
-                    rs.getInt("cuotas"),
-                    rs.getDate("fecha_inicio").toLocalDate(),
-                    rs.getString("estado")
-            );
+            Prestamo prestamo = new Prestamo();
+            
+            prestamo.setId(rs.getInt("id"));
+            prestamo.setClienteId(rs.getInt("cliente_id"));
+            prestamo.setEmpleadoId(rs.getInt("empleado_id"));
+            prestamo.setMonto(rs.getDouble("monto"));
+            prestamo.setInteres(rs.getDouble("interes"));
+            prestamo.setCuotas(rs.getInt("cuotas"));
+            prestamo.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
+            prestamo.setEstado(rs.getString("estado"));
 
             prestamos.add(prestamo);
         }
