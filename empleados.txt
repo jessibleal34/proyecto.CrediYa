@@ -1,2 +1,3 @@
 2 | Camila Valencia | 1234455 | Contadora | camila@gamicl.com | 200000.0
 3 | cesar Ortiz | 1827366 | Asesor | cesar34@gmail.com | 250000.0
+4 | Ingrie Duran | 183774 | Asesora | ingrie@gamil.com | 3000000.0

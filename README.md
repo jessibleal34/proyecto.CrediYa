@@ -821,53 +821,75 @@ Se realizaron pruebas para validar las principales funcionalidades del sistema.
 # 📸 Evidencias
 
 ## 1. Menú principal
-
-![Menú principal](evidencias/01_menu_principal.png)
+<p align="center">
+  <img src="img/menuPrincipal.png" width="400">
+</p>
 
 ## 2. Registro de empleado
 
-![Registrar empleado](evidencias/02_registrar_empleado.png)
+<p align="center">
+  <img src="img/registroEmpleado.png" width="400">
+</p>
 
 ## 3. Registro de cliente
 
-![Registrar cliente](evidencias/03_registrar_cliente.png)
+<p align="center">
+  <img src="img/registroCliente.png" width="400">
+</p>
 
 ## 4. Registro de préstamo
 
-![Registrar préstamo](evidencias/05_registrar_prestamo.png)
+<p align="center">
+  <img src="img/registroPrestamo.png" width="400">
+</p>
 
 ## 5. Registro de pago
 
-![Registrar pago](evidencias/07_registrar_pago.png)
+<p align="center">
+  <img src="img/resgistroPago.png" width="400">
+</p>
 
 ## 6. Actualización del saldo
 
-![Saldo actualizado](evidencias/08_saldo_actualizado.png)
+<p align="center">
+  <img src="img/actualizacionSaldo.png" width="400">
+</p>
 
 ## 7. Histórico de pagos
 
-![Histórico de pagos](evidencias/10_historico_pagos.png)
+<p align="center">
+  <img src="img/historicoPagos.png" width="400">
+</p>
 
 ## 8. Reporte de préstamos pendientes
 
-![Préstamos pendientes](evidencias/11_reporte_pendientes.png)
+<p align="center">
+  <img src="img/prestamosPendientes.png" width="400">
+</p>
 
 ## 9. Reporte de préstamos pagados
 
-![Préstamos pagados](evidencias/12_reporte_pagados.png)
+<p align="center">
+  <img src="img/prestamosPagados.png" width="400">
+</p>
 
 ## 10. Reporte de clientes morosos
 
-![Clientes morosos](evidencias/13_clientes_morosos.png)
+<p align="center">
+  <img src="img/clientesMorosos.png" width="400">
+</p>
 
 ## 11. Persistencia en archivos
 
-![Archivos TXT](evidencias/09_archivos_txt.png)
+<p align="center">
+  <img src="img/persistenciaArchivos.png" width="400">
+</p>
 
 ## 12. Base de datos MySQL
 
-![Base de datos](evidencias/15_base_datos.png)
-
+<p align="center">
+  <img src="img/BaseDatosMysql.png" width="400">
+</p>
 ---
 
 # 🔗 Flujo completo del sistema
