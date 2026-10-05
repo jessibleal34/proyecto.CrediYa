@@ -11,13 +11,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.mycompany.crediya.modelo.persistencia.ArchivoDAO;
+import java.sql.Statement;
 /**
  *
  * @author jessica urrego
  */
 
 public class PagoDAO {
+    
+    private final ArchivoDAO archivoDAO = new ArchivoDAO();
 
     public void insertar(Pago pago) {
 
@@ -58,6 +61,8 @@ public class PagoDAO {
 
                         conexion.rollback();
                         return;
+                        
+                        
                     }
 
                     double saldoActual =
@@ -87,41 +92,41 @@ public class PagoDAO {
                     }
 
                     // 6. Insertar el pago
-                    try (PreparedStatement psPago =
-                            conexion.prepareStatement(insertarPago)) {
+                   try (PreparedStatement psPago =
+        conexion.prepareStatement(
+                insertarPago,
+                Statement.RETURN_GENERATED_KEYS)) {
 
-                        psPago.setInt(1, pago.getPrestamoId());
-                        psPago.setDate(
-                                2,
-                                java.sql.Date.valueOf(
-                                        pago.getFechaPago()
-                                )
-                        );
-                        psPago.setDouble(3, pago.getMonto());
+    psPago.setInt(1, pago.getPrestamoId());
 
-                        psPago.executeUpdate();
-                    }
+    psPago.setDate(
+            2,
+            java.sql.Date.valueOf(
+                    pago.getFechaPago()
+            )
+    );
 
-                    // 7. Actualizar saldo
-                    try (PreparedStatement psActualizar =
-                            conexion.prepareStatement(
-                                    actualizarPrestamo)) {
+    psPago.setDouble(3, pago.getMonto());
+    psPago.executeUpdate();
 
-                        psActualizar.setDouble(
-                                1,
-                                pago.getMonto()
-                        );
+    try (ResultSet rsPago = psPago.getGeneratedKeys()) {
 
-                        psActualizar.setInt(
-                                2,
-                                pago.getPrestamoId()
-                        );
+        if (rsPago.next()) {
 
-                        psActualizar.executeUpdate();
-                    }
+            int idGenerado = rsPago.getInt(1);
 
+            pago.setId(idGenerado);
+
+            System.out.println(
+                    "ID del pago generado: " + idGenerado
+            );
+        }
+    }
+}
                     // 8. Si todo salió bien, confirmar
                     conexion.commit();
+                    
+                    archivoDAO.guardarPago(pago);
 
                     double nuevoSaldo =
                             saldoActual - pago.getMonto();
@@ -184,6 +189,7 @@ public class PagoDAO {
                     System.out.println(
                             "Error al cerrar la conexión: "
                             + e.getMessage()
+                            
                     );
                 }
             }

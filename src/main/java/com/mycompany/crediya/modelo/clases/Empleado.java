@@ -21,12 +21,8 @@ public class Empleado {
     
 public Empleado() {
 
-    Empleado empleado = new Empleado();
-    
-  
-}
-
-    public Empleado(int id, String nombre, String documento, String rol, String correo, double salario) {
+   }
+ public Empleado(int id, String nombre, String documento, String rol, String correo, double salario) {
         this.id = id;
         this.nombre = nombre;
         this.documento = documento;

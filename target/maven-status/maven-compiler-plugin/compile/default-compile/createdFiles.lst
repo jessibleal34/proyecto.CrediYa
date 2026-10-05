@@ -9,6 +9,7 @@ com\mycompany\crediya\modelo\clases\Prestamo.class
 com\mycompany\crediya\modelo\persistencia\PrestamoDAO.class
 com\mycompany\crediya\modelo\persistencia\EmpleadoDAO.class
 com\mycompany\crediya\modelo\clases\Cliente.class
+com\mycompany\crediya\modelo\persistencia\ArchivoDAO.class
 com\mycompany\crediya\util\ArchivoUtil.class
 com\mycompany\crediya\controlador\EmpladoController.class
 com\mycompany\crediya\modelo\persistencia\PagoDAO.class

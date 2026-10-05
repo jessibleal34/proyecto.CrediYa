@@ -7,11 +7,13 @@
 package com.mycompany.crediya.vista;
 
 
-
+import com.mycompany.crediya.modelo.persistencia.ArchivoDAO;
 import com.mycompany.crediya.modelo.clases.Cliente;
+import com.mycompany.crediya.modelo.clases.Empleado;
 import com.mycompany.crediya.modelo.clases.Pago;
 import com.mycompany.crediya.modelo.clases.Prestamo;
 import com.mycompany.crediya.modelo.persistencia.ClienteDAO;
+import com.mycompany.crediya.modelo.persistencia.EmpleadoDAO;
 import com.mycompany.crediya.modelo.persistencia.PagoDAO;
 import com.mycompany.crediya.modelo.persistencia.PrestamoDAO;
 import java.time.LocalDate;
@@ -25,6 +27,8 @@ public class Menu {
     private static final ClienteDAO clienteDAO = new ClienteDAO();
     private static final PrestamoDAO prestamoDAO = new PrestamoDAO();
     private static final PagoDAO pagoDAO = new PagoDAO();
+    private static final ArchivoDAO archivoDAO = new ArchivoDAO();
+    private static final EmpleadoDAO empleadoDAO = new EmpleadoDAO();
 
     public static void main(String[] args) {
 
@@ -37,43 +41,51 @@ public class Menu {
             System.out.print("Seleccione una opción: ");
             opcion = leerEntero();
 
-            switch (opcion) {
+          switch (opcion) {
 
-                case 1:
-                    registrarCliente();
-                    break;
+    case 1:
+        registrarEmpleado();
+        break;
 
-                case 2:
-                    listarClientes();
-                    break;
+    case 2:
+        registrarCliente();
+        break;
 
-                case 3:
-                    listarPrestamos();
-                    break;
+    case 3:
+        listarClientes();
+        break;
 
-                case 4:
-                    registrarPago();
-                    break;
+    case 4:
+        registrarPrestamo();
+        break;
 
-                case 5:
-                    listarPagos();
-                    break;
+    case 5:
+        listarPrestamos();
+        break;
 
-                case 6:
-                    mostrarReportes();
-                    break;
+    case 6:
+        registrarPago();
+        break;
 
-                case 7:
-                    System.out.println("\nSaliendo de CrediYa...");
-                    break;
+    case 7:
+        listarPagos();
+        break;
 
-                default:
-                    System.out.println(
-                            "\nOpción no válida. Intente nuevamente."
-                    );
-            }
+    case 8:
+        mostrarReportes();
+        break;
 
-        } while (opcion != 7);
+    case 9:
+        System.out.println("\nSaliendo de CrediYa...");
+        break;
+
+    default:
+        System.out.println(
+                "\nOpción no válida. Intente nuevamente."
+        );
+}
+
+        } while (opcion != 9);
 
         scanner.close();
     }
@@ -84,18 +96,15 @@ public class Menu {
 
     private static void mostrarMenu() {
 
-        System.out.println("\n=================================");
-        System.out.println("          CREDIYA S.A.S.");
-        System.out.println("     Sistema de Créditos");
-        System.out.println("=================================");
-        System.out.println("1. Registrar cliente");
-        System.out.println("2. Listar clientes");
-        System.out.println("3. Listar préstamos");
-        System.out.println("4. Registrar pago");
-        System.out.println("5. Ver histórico de pagos");
-        System.out.println("6. Reportes");
-        System.out.println("7. Salir");
-        System.out.println("=================================");
+        System.out.println("1. Registrar empleado");
+System.out.println("2. Registrar cliente");
+System.out.println("3. Listar clientes");
+System.out.println("4. Registrar préstamo");
+System.out.println("5. Listar préstamos");
+System.out.println("6. Registrar pago");
+System.out.println("7. Ver histórico de pagos");
+System.out.println("8. Reportes");
+System.out.println("9. Salir");
     }
 
     // =========================
@@ -130,15 +139,17 @@ public class Menu {
             return;
         }
 
-        Cliente cliente = new Cliente(
-                0,
-                nombre,
-                documento,
-                correo,
-                telefono
-        );
+       Cliente cliente = new Cliente(
+        0,
+        nombre,
+        documento,
+        correo,
+        telefono
+);
 
-        clienteDAO.insertar(cliente);
+clienteDAO.insertar(cliente);
+
+archivoDAO.guardarCliente(cliente);
     }
 
     private static void listarClientes() {
@@ -158,10 +169,121 @@ public class Menu {
             System.out.println(cliente);
         }
     }
+    private static void registrarEmpleado() {
+
+    System.out.println("\n=== REGISTRAR EMPLEADO ===");
+
+    System.out.print("Nombre: ");
+    String nombre = scanner.nextLine();
+
+    System.out.print("Documento: ");
+    String documento = scanner.nextLine();
+
+    System.out.print("Rol: ");
+    String rol = scanner.nextLine();
+
+    System.out.print("Correo: ");
+    String correo = scanner.nextLine();
+
+    System.out.print("Salario: ");
+    double salario = leerDouble();
+
+    // Validaciones
+    if (nombre.isBlank()
+            || documento.isBlank()
+            || rol.isBlank()
+            || correo.isBlank()) {
+
+        System.out.println(
+                "Todos los campos son obligatorios."
+        );
+
+        return;
+    }
+
+    if (salario <= 0) {
+
+        System.out.println(
+                "El salario debe ser mayor que cero."
+        );
+
+        return;
+    }
+
+    // Crear empleado
+    Empleado empleado = new Empleado(
+            0,
+            nombre,
+            documento,
+            rol,
+            correo,
+            salario
+    );
+
+    // Guardar en MySQL
+    empleadoDAO.insertar(empleado);
+
+    // Guardar también en archivo
+    archivoDAO.guardarEmpleado(empleado);
+}
+    
 
     // =========================
     // PRÉSTAMOS
     // =========================
+    
+    
+    private static void registrarPrestamo() {
+
+    System.out.println("\n=== REGISTRAR PRÉSTAMO ===");
+
+    System.out.print("ID del cliente: ");
+    int clienteId = leerEntero();
+
+    System.out.print("ID del empleado: ");
+    int empleadoId = leerEntero();
+
+    System.out.print("Monto del préstamo: ");
+    double monto = leerDouble();
+
+    System.out.print("Interés (%): ");
+    double interes = leerDouble();
+
+    System.out.print("Número de cuotas: ");
+    int cuotas = leerEntero();
+
+    // Validaciones
+    if (monto <= 0) {
+        System.out.println("El monto debe ser mayor que cero.");
+        return;
+    }
+
+    if (interes < 0) {
+        System.out.println("El interés no puede ser negativo.");
+        return;
+    }
+
+    if (cuotas <= 0) {
+        System.out.println("El número de cuotas debe ser mayor que cero.");
+        return;
+    }
+
+    // Crear préstamo
+    Prestamo prestamo = new Prestamo();
+
+    prestamo.setClienteId(clienteId);
+    prestamo.setEmpleadoId(empleadoId);
+    prestamo.setMonto(monto);
+    prestamo.setInteres(interes);
+    prestamo.setCuotas(cuotas);
+    prestamo.setFechaInicio(LocalDate.now());
+    prestamo.setEstado("pendiente");
+
+    // Guardar en la base de datos
+    prestamoDAO.insertar(prestamo);
+    // Guardar también en archivo
+archivoDAO.guardarPrestamo(prestamo);
+}
 
     private static void listarPrestamos() {
 
@@ -236,44 +358,51 @@ public class Menu {
     // REPORTES
     // =========================
 
-    private static void mostrarReportes() {
+    
 
-        int opcion;
+            private static void mostrarReportes() {
 
-        do {
+    int opcion;
 
-            System.out.println("\n=================================");
-            System.out.println("            REPORTES");
-            System.out.println("=================================");
-            System.out.println("1. Préstamos pendientes");
-            System.out.println("2. Préstamos pagados");
-            System.out.println("3. Volver al menú principal");
-            System.out.println("=================================");
+    do {
 
-            System.out.print("Seleccione una opción: ");
-            opcion = leerEntero();
+        System.out.println("\n=================================");
+        System.out.println("            REPORTES");
+        System.out.println("=================================");
+        System.out.println("1. Préstamos pendientes");
+        System.out.println("2. Préstamos pagados");
+        System.out.println("3. Clientes morosos");
+        System.out.println("4. Volver al menú principal");
+        System.out.println("=================================");
 
-            switch (opcion) {
+        System.out.print("Seleccione una opción: ");
+        opcion = leerEntero();
 
-                case 1:
-                    reportePendientes();
-                    break;
+        switch (opcion) {
 
-                case 2:
-                    reportePagados();
-                    break;
+            case 1:
+                reportePendientes();
+                break;
 
-                case 3:
-                    break;
+            case 2:
+                reportePagados();
+                break;
 
-                default:
-                    System.out.println(
-                            "Opción no válida."
-                    );
-            }
+            case 3:
+                reporteClientesMorosos();
+                break;
 
-        } while (opcion != 3);
-    }
+            case 4:
+                System.out.println("Volviendo al menú principal...");
+                break;
+
+            default:
+                System.out.println("Opción no válida. Intente nuevamente.");
+        }
+
+    } while (opcion != 4);
+            
+}
 
     private static void reportePendientes() {
 
@@ -288,6 +417,7 @@ public class Menu {
                 .forEach(System.out::println);
     }
 
+
     private static void reportePagados() {
 
         System.out.println(
@@ -300,6 +430,31 @@ public class Menu {
                 .filter(p -> p.getSaldoPendiente() == 0)
                 .forEach(System.out::println);
     }
+private static void reporteClientesMorosos() {
+
+    System.out.println("\n=== CLIENTES MOROSOS ===");
+
+    List<Prestamo> prestamos = prestamoDAO.listar();
+
+    System.out.println("Total préstamos encontrados: " + prestamos.size());
+
+    prestamos.forEach(p -> {
+        System.out.println(
+                "Cliente: " + p.getClienteId()
+                + " | Saldo: " + p.getSaldoPendiente()
+        );
+    });
+
+    prestamos.stream()
+            .filter(p -> p.getSaldoPendiente() > 0)
+            .map(Prestamo::getClienteId)
+            .distinct()
+            .forEach(id -> {
+                System.out.println("Cliente moroso ID: " + id);
+            });
+}
+
+      
 
     // =========================
     // MÉTODOS AUXILIARES
@@ -328,22 +483,28 @@ public class Menu {
 
     private static double leerDouble() {
 
-        while (true) {
+    while (true) {
 
-            try {
+        try {
 
-                double numero = Double.parseDouble(
-                        scanner.nextLine()
-                );
+            double numero = Double.parseDouble(
+                    scanner.nextLine()
+            );
 
-                return numero;
+            return numero;
 
-            } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
 
-                System.out.print(
-                        "Ingrese un valor válido: "
-                );
-            }
+            System.out.print(
+                    "Ingrese un valor válido: "
+            );
         }
     }
 }
+}
+        
+    
+
+    
+    
+

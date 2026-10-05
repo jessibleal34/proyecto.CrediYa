@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.sql.Statement;
 /**
  *
  * @author jessica urrego
@@ -24,7 +24,9 @@ public class EmpleadoDAO {
             + "VALUES (?, ?, ?, ?, ?)";
 
     try (Connection conexion = ConexionBD.conectar();
-         PreparedStatement ps = conexion.prepareStatement(sql)) {
+         PreparedStatement ps = conexion.prepareStatement(
+                 sql,
+                 Statement.RETURN_GENERATED_KEYS)) {
 
         ps.setString(1, empleado.getNombre());
         ps.setString(2, empleado.getDocumento());
@@ -34,15 +36,33 @@ public class EmpleadoDAO {
 
         ps.executeUpdate();
 
-        System.out.println("Empleado guardado correctamente.");
+        // Obtener el ID generado por MySQL
+        try (ResultSet rs = ps.getGeneratedKeys()) {
+
+            if (rs.next()) {
+
+                int idGenerado = rs.getInt(1);
+
+                empleado.setId(idGenerado);
+
+                System.out.println(
+                        "Empleado guardado correctamente."
+                );
+
+                System.out.println(
+                        "ID generado: " + idGenerado
+                );
+            }
+        }
 
     } catch (SQLException e) {
 
-        System.out.println("Error al guardar empleado: "
-                + e.getMessage());
+        System.out.println(
+                "Error al guardar empleado: "
+                + e.getMessage()
+        );
     }
-    }
-    
+}
     public List<Empleado> listar() {
 
     List<Empleado> empleados = new ArrayList<>();

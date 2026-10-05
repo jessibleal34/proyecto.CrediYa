@@ -26,18 +26,20 @@ public class Prestamo {
     public Prestamo() {
 }
 
-    public Prestamo(int id, int clienteId, int empleadoId, double monto, double interes, int cuotas, LocalDate fechaInicio, String estado) {
-        this.id = id;
-        this.clienteId = clienteId;
-        this.empleadoId = empleadoId;
-        this.monto = monto;
-        this.interes = interes;
-        this.cuotas = cuotas;
-        this.fechaInicio = fechaInicio;
-        this.estado = estado;
-        this.saldoPendiente = saldoPendiente;
-    }
+   public Prestamo(int id, int clienteId, int empleadoId,
+                double monto, double interes, int cuotas,
+                LocalDate fechaInicio, String estado) {
 
+    this.id = id;
+    this.clienteId = clienteId;
+    this.empleadoId = empleadoId;
+    this.monto = monto;
+    this.interes = interes;
+    this.cuotas = cuotas;
+    this.fechaInicio = fechaInicio;
+    this.estado = estado;
+}
+   
     public int getId() {
         return id;
     }
