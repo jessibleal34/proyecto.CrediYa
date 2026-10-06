@@ -6,12 +6,7 @@ package com.mycompany.crediya.modelo.clases;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author jessica urrego
- */
 public class Prestamo {
-    
 
     private int id;
     private int clienteId;
@@ -22,24 +17,36 @@ public class Prestamo {
     private LocalDate fechaInicio;
     private String estado;
     private double saldoPendiente;
-    
+
+    // Constructor vacío
     public Prestamo() {
-}
+    }
 
-   public Prestamo(int id, int clienteId, int empleadoId,
-                double monto, double interes, int cuotas,
-                LocalDate fechaInicio, String estado) {
+    // Constructor completo
+    public Prestamo(
+            int id,
+            int clienteId,
+            int empleadoId,
+            double monto,
+            double interes,
+            int cuotas,
+            LocalDate fechaInicio,
+            String estado) {
 
-    this.id = id;
-    this.clienteId = clienteId;
-    this.empleadoId = empleadoId;
-    this.monto = monto;
-    this.interes = interes;
-    this.cuotas = cuotas;
-    this.fechaInicio = fechaInicio;
-    this.estado = estado;
-}
-   
+        this.id = id;
+        this.clienteId = clienteId;
+        this.empleadoId = empleadoId;
+        this.monto = monto;
+        this.interes = interes;
+        this.cuotas = cuotas;
+        this.fechaInicio = fechaInicio;
+        this.estado = estado;
+    }
+
+    // =========================
+    // GETTERS Y SETTERS
+    // =========================
+
     public int getId() {
         return id;
     }
@@ -104,24 +111,57 @@ public class Prestamo {
         this.estado = estado;
     }
 
+    public double getSaldoPendiente() {
+        return saldoPendiente;
+    }
+
+    public void setSaldoPendiente(double saldoPendiente) {
+        this.saldoPendiente = saldoPendiente;
+    }
+
+    // =========================
+    // CÁLCULOS
+    // =========================
+
+    /**
+     * Calcula el valor total del préstamo
+     * incluyendo los intereses.
+     */
+    public double calcularMontoTotal() {
+
+        return monto + (monto * interes / 100);
+    }
+
+    /**
+     * Calcula el valor de cada cuota mensual.
+     */
+    public double calcularCuotaMensual() {
+
+        if (cuotas <= 0) {
+            return 0;
+        }
+
+        return calcularMontoTotal() / cuotas;
+    }
+
+    // =========================
+    // TOSTRING
+    // =========================
+
     @Override
     public String toString() {
-        return "Prestamo{" + "id=" + id + ", clienteId=" + clienteId + ", empleadoId=" + empleadoId + ", monto=" + monto + ", interes=" + interes + ", cuotas=" + cuotas + ", fechaInicio=" + fechaInicio + ", estado=" + estado + '}';
+
+        return "Prestamo{"
+                + "id=" + id
+                + ", clienteId=" + clienteId
+                + ", empleadoId=" + empleadoId
+                + ", monto=" + monto
+                + ", interes=" + interes
+                + ", cuotas=" + cuotas
+                + ", cuotaMensual=" + calcularCuotaMensual()
+                + ", fechaInicio=" + fechaInicio
+                + ", estado=" + estado
+                + ", saldoPendiente=" + saldoPendiente
+                + '}';
     }
-    public double calcularMontoTotal() {
-    return monto + (monto * interes / 100);
 }
-    public double calcularCuotaMensual() {
-    return calcularMontoTotal() / cuotas;
-}
-
-   public double getSaldoPendiente() {
-    return saldoPendiente;
-}
-    public void setSaldoPendiente(double saldoPendiente) {
-    this.saldoPendiente = saldoPendiente;
-}
-
-}
-    
-

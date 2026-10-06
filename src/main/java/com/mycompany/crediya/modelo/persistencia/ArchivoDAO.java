@@ -13,7 +13,10 @@ package com.mycompany.crediya.modelo.persistencia;
 import com.mycompany.crediya.modelo.clases.Prestamo;
 import com.mycompany.crediya.modelo.clases.Cliente;
 import com.mycompany.crediya.modelo.clases.Pago;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -79,6 +82,83 @@ public class ArchivoDAO {
                 + e.getMessage()
         );
     }
+}
+        public void actualizarPrestamo(Prestamo prestamo) {
+
+    File archivo = new File(ARCHIVO_PRESTAMOS);
+    File archivoTemporal = new File("prestamos_temp.txt");
+
+    try (
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(archivo));
+            BufferedWriter writer = new BufferedWriter(
+                    new FileWriter(archivoTemporal))
+    ) {
+
+        String linea;
+
+        while ((linea = reader.readLine()) != null) {
+
+            String[] datos = linea.split("\\s*\\|\\s*");
+
+            // Verificar que la línea tenga todos los datos
+            if (datos.length >= 9) {
+
+                int id = Integer.parseInt(datos[0]);
+
+                // Si encontramos el préstamo
+                if (id == prestamo.getId()) {
+
+                    linea =
+                            prestamo.getId() + " | "
+                            + prestamo.getClienteId() + " | "
+                            + prestamo.getEmpleadoId() + " | "
+                            + prestamo.getMonto() + " | "
+                            + prestamo.getInteres() + " | "
+                            + prestamo.getCuotas() + " | "
+                            + prestamo.getFechaInicio() + " | "
+                            + prestamo.getEstado() + " | "
+                            + prestamo.getSaldoPendiente();
+                }
+            }
+
+            writer.write(linea);
+            writer.newLine();
+        }
+
+    } catch (IOException | NumberFormatException e) {
+
+        System.out.println(
+                "Error al actualizar el préstamo en archivo: "
+                + e.getMessage()
+        );
+
+        return;
+    }
+
+    // Eliminar archivo original
+    if (!archivo.delete()) {
+
+        System.out.println(
+                "No se pudo eliminar el archivo original."
+        );
+
+        return;
+    }
+
+    // Renombrar temporal
+    if (!archivoTemporal.renameTo(archivo)) {
+
+        System.out.println(
+                "No se pudo actualizar prestamos.txt."
+        );
+
+        return;
+    }
+
+    System.out.println(
+            "Préstamo actualizado en prestamos.txt."
+    );
 }
    public void guardarPago(Pago pago) {
 

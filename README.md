@@ -10,7 +10,7 @@ Además, el proyecto integra una base de datos **MySQL** con una aplicación Jav
 
 ---
 
-# 📌 Tabla de contenidos
+#  Tabla de contenidos
 
 - [Descripción del proyecto](#-descripción-del-proyecto)
 - [Objetivos](#-objetivos)
@@ -57,7 +57,7 @@ El sistema permite:
 
 ---
 
-# 🎯 Objetivos
+#  Objetivos
 
 ## Objetivo general
 
@@ -78,9 +78,9 @@ Desarrollar un sistema de gestión de créditos utilizando Java, MySQL y diferen
 
 ---
 
-# ⚙️ Funcionalidades
+#  Funcionalidades
 
-## 👨‍💼 Gestión de empleados
+##  Gestión de empleados
 
 Permite registrar empleados con la siguiente información:
 
@@ -99,7 +99,7 @@ empleados.txt
 
 ---
 
-## 👤 Gestión de clientes
+##  Gestión de clientes
 
 Permite registrar clientes con:
 
@@ -119,7 +119,7 @@ También es posible consultar los clientes registrados.
 
 ---
 
-## 💰 Gestión de préstamos
+##  Gestión de préstamos
 
 Permite registrar préstamos asociados a un cliente y a un empleado.
 
@@ -153,7 +153,7 @@ Además, el ID generado automáticamente por MySQL se recupera mediante JDBC y s
 
 ---
 
-# 💵 Gestión de pagos
+#  Gestión de pagos
 
 El sistema permite registrar pagos asociados a un préstamo.
 
@@ -232,7 +232,7 @@ De esta forma, Java se comunica directamente con MySQL mediante consultas SQL ej
 
 ---
 
-# 🗂️ Patrón DAO
+#  Patrón DAO
 
 El proyecto utiliza el patrón **DAO (Data Access Object)** para organizar el acceso a la base de datos.
 
@@ -321,7 +321,7 @@ saldo_pendiente
 
 ---
 
-# 🔐 Gestión de pagos y transacciones
+#  Gestión de pagos y transacciones
 
 Una de las partes principales del proyecto es la gestión de pagos mediante una **transacción JDBC**.
 
@@ -707,6 +707,42 @@ CrediYa/
 - Patrón DAO
 - Transacciones JDBC
 
+##  Gestión de Pagos
+
+CrediYa permite registrar pagos y actualizar automáticamente el saldo de los préstamos.
+
+Al realizar un pago, el sistema:
+
+- Registra el pago en **MySQL** y `pagos.txt`.
+- Descuenta el valor del pago del saldo pendiente.
+- Cambia automáticamente el estado de `pendiente` a `pagado` cuando el saldo llega a $0.
+- Actualiza la información del préstamo en `prestamos.txt`.
+- Valida que el pago sea mayor que cero y no supere el saldo pendiente.
+- Utiliza transacciones JDBC con `commit` y `rollback`.
+
+###  Cálculos
+
+**Monto total:**
+
+```text
+Monto + (Monto × Interés / 100)
+```
+
+**Cuota mensual:**
+
+```text
+Monto total / Número de cuotas
+```
+
+###  Persistencia
+
+El sistema utiliza:
+
+- **Java** para la lógica del sistema.
+- **MySQL + JDBC** para la persistencia en base de datos.
+- **Archivos TXT** para almacenamiento adicional.
+- **POO, colecciones, excepciones y Stream API/Lambda** para el desarrollo de la aplicación.
+
 ---
 
 # ▶️ Instalación y ejecución
@@ -887,9 +923,15 @@ Se realizaron pruebas para validar las principales funcionalidades del sistema.
 
 ## 12. Base de datos MySQL
 
-<p align="center">
+p align="center">
   <img src="img/BaseDatosMysql.png" width="400">
+</p><
+
+## Gestion de pagos
+p align="center">
+  <img src="img/GestionDePagos.png" width="400">
 </p>
+
 ---
 
 # 🔗 Flujo completo del sistema
@@ -927,7 +969,7 @@ El funcionamiento general de CrediYa puede resumirse de la siguiente manera:
 
 ---
 
-# 🔐 Validaciones principales
+#  Validaciones principales
 
 El sistema incluye validaciones para evitar operaciones incorrectas.
 
