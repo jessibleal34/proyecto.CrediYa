@@ -1035,3 +1035,15 @@ Finalmente, Lambda y Stream permiten procesar la información para generar repor
 **Lenguaje:** Java  
 **Base de datos:** MySQL  
 **Control de versiones:** Git / GitHub
+
+
+# EVALUACION 
+
+puse la validacion de error con try/catch que el monto a apagar noi sea negativo
+p align="center">
+  <img src="img/validacion.png" width="400">
+</p><
+
+2. puse listar prestamos mayores al valor que ingrese el cliente 
+<img src="img/Captura de pantalla 2026-10-09 114155.pngg" width="400">
+</p><

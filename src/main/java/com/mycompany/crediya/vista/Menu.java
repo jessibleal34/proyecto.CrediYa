@@ -372,7 +372,8 @@ archivoDAO.guardarPrestamo(prestamo);
         System.out.println("1. Préstamos pendientes");
         System.out.println("2. Préstamos pagados");
         System.out.println("3. Clientes morosos");
-        System.out.println("4. Volver al menú principal");
+         System.out.println("4. pagos mayores a ");
+        System.out.println("5. Volver al menú principal");
         System.out.println("=================================");
 
         System.out.print("Seleccione una opción: ");
@@ -392,7 +393,11 @@ archivoDAO.guardarPrestamo(prestamo);
                 reporteClientesMorosos();
                 break;
 
-            case 4:
+             case 4:
+                reportePagosMayor();
+                break;
+                
+            case 5:
                 System.out.println("Volviendo al menú principal...");
                 break;
 
@@ -400,7 +405,7 @@ archivoDAO.guardarPrestamo(prestamo);
                 System.out.println("Opción no válida. Intente nuevamente.");
         }
 
-    } while (opcion != 4);
+    } while (opcion != 5);
             
 }
 
@@ -453,8 +458,26 @@ private static void reporteClientesMorosos() {
                 System.out.println("Cliente moroso ID: " + id);
             });
 }
+ private static void reportePagosMayor() {
 
-      
+
+        System.out.println("\n=== PAGO MAYOR A===");
+
+        System.out.print("Ver pagos mayores a: ");
+        double valor= leerEntero();
+        
+
+       List<Prestamo> prestamos = prestamoDAO.listar();
+        prestamos.stream()
+                .filter(p -> p.getSaldoPendiente() > valor)
+                .forEach(System.out::println); 
+
+
+            return;
+        }
+ 
+
+        
 
     // =========================
     // MÉTODOS AUXILIARES
@@ -500,8 +523,11 @@ private static void reporteClientesMorosos() {
             );
         }
     }
+    }
 }
-}
+    
+    
+
         
     
 

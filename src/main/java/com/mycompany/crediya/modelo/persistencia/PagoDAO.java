@@ -124,6 +124,20 @@ public class PagoDAO {
 
                         return;
                     }
+// validacion que el monto no sea un monto negativo
+
+
+if (pago.getMonto() <= 0) {
+
+                        System.out.println(
+                                "El monto del pago debe "
+                                + "ser mayor que cero."
+                        );
+
+                        conexion.rollback();
+
+                        return;
+                    }
 
                     // ==========================================
                     // 6. INSERTAR PAGO EN MYSQL
@@ -428,3 +442,6 @@ public class PagoDAO {
         return pagos;
     }
 }
+
+
+        
